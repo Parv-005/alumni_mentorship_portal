@@ -56,6 +56,7 @@ class ForumComposeViewModel extends ChangeNotifier {
       return;
     }
     _title = value;
+    notifyListeners();
   }
 
   void setBody(String value) {
@@ -63,6 +64,7 @@ class ForumComposeViewModel extends ChangeNotifier {
       return;
     }
     _body = value;
+    notifyListeners();
   }
 
   void setTagsText(String value) {
@@ -70,6 +72,7 @@ class ForumComposeViewModel extends ChangeNotifier {
       return;
     }
     _tagsText = value;
+    notifyListeners();
   }
 
   /// Returns `true` when the form has a non-empty title and body.

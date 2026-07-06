@@ -28,6 +28,7 @@ class MentorDirectoryViewModel extends ChangeNotifier {
   String _search = '';
   String? _domain;
   bool _availableOnly = false;
+  bool _hasOwnMentorProfile = false;
 
   List<Mentor> get mentors => _mentors;
   bool get loading => _loading;
@@ -35,6 +36,9 @@ class MentorDirectoryViewModel extends ChangeNotifier {
   String get search => _search;
   String? get domain => _domain;
   bool get availableOnly => _availableOnly;
+
+  /// Whether the current user already has a mentor profile.
+  bool get hasOwnMentorProfile => _hasOwnMentorProfile;
 
   /// Loads mentors using the current filter state. Safe to call multiple
   /// times — a request already in flight will be coalesced.
@@ -46,11 +50,16 @@ class MentorDirectoryViewModel extends ChangeNotifier {
     _error = null;
     notifyListeners();
     try {
-      _mentors = await _mentorRepository.list(
-        search: _search,
-        domain: _domain,
-        availability: _availableOnly ? 'accepting' : null,
-      );
+      final results = await Future.wait(<Future<dynamic>>[
+        _mentorRepository.list(
+          search: _search,
+          domain: _domain,
+          availability: _availableOnly ? 'accepting' : null,
+        ),
+        _mentorRepository.fetchOwnMentorProfile(),
+      ]);
+      _mentors = results[0] as List<Mentor>;
+      _hasOwnMentorProfile = results[1] != null;
     } on Object catch (e, st) {
       developer.log('MentorDirectory load failed', error: e, stackTrace: st);
       _error = e.toString();

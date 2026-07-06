@@ -313,6 +313,7 @@ class _DesktopPageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -321,7 +322,7 @@ class _DesktopPageHeader extends StatelessWidget {
           style: GoogleFonts.spaceGrotesk(
             fontSize: 28,
             fontWeight: FontWeight.w600,
-            color: AppColors.onSurface,
+            color: theme.colorScheme.onSurface,
           ),
         ),
         if (role != null) RoleBadge(role: role!),
@@ -365,11 +366,12 @@ class _ActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: theme.cardTheme.color ?? theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.outlineVariant),
+        border: Border.all(color: theme.colorScheme.outlineVariant),
       ),
       padding: const EdgeInsets.all(32),
       child: Column(
@@ -381,7 +383,7 @@ class _ActivityCard extends StatelessWidget {
             style: GoogleFonts.outfit(
               fontSize: 11,
               fontWeight: FontWeight.w600,
-              color: AppColors.onSurfaceVariant,
+              color: theme.colorScheme.onSurfaceVariant,
               letterSpacing: 2.4,
             ),
           ),
@@ -449,6 +451,7 @@ class _DesktopForumSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -460,7 +463,7 @@ class _DesktopForumSection extends StatelessWidget {
               style: GoogleFonts.spaceGrotesk(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color: AppColors.onSurface,
+                color: theme.colorScheme.onSurface,
               ),
             ),
             TextButton(
@@ -494,11 +497,12 @@ class _DesktopForumPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     final String author = post.author?.fullName ?? 'Unknown';
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Material(
-        color: AppColors.card,
+        color: theme.cardTheme.color ?? theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           onTap: () => context.go('/forum/${post.id}'),
@@ -506,7 +510,7 @@ class _DesktopForumPostCard extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.outlineVariant),
+              border: Border.all(color: theme.colorScheme.outlineVariant),
             ),
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -520,7 +524,7 @@ class _DesktopForumPostCard extends StatelessWidget {
                       _relativeTime(post.createdAt),
                       style: GoogleFonts.outfit(
                         fontSize: 12,
-                        color: AppColors.onSurfaceVariant,
+                        color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
@@ -531,7 +535,7 @@ class _DesktopForumPostCard extends StatelessWidget {
                   style: GoogleFonts.outfit(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.onSurface,
+                    color: theme.colorScheme.onSurface,
                     height: 1.3,
                   ),
                   maxLines: 2,
@@ -559,17 +563,17 @@ class _DesktopForumPostCard extends StatelessWidget {
                     ),
                     Row(
                       children: <Widget>[
-                        const Icon(
+                        Icon(
                           Icons.thumb_up_outlined,
                           size: 16,
-                          color: AppColors.onSurfaceVariant,
+                          color: theme.colorScheme.onSurfaceVariant,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           '${post.upvotes}',
                           style: GoogleFonts.outfit(
                             fontSize: 12,
-                            color: AppColors.onSurfaceVariant,
+                            color: theme.colorScheme.onSurfaceVariant,
                           ),
                         ),
                       ],
@@ -592,6 +596,7 @@ class _SuggestedMentorsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -600,7 +605,7 @@ class _SuggestedMentorsSection extends StatelessWidget {
           style: GoogleFonts.spaceGrotesk(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: AppColors.onSurface,
+            color: theme.colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 24),
@@ -626,14 +631,15 @@ class _SuggestedMentorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     final String name = mentor.profile?.fullName ?? 'Mentor';
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.card,
+          color: theme.cardTheme.color ?? theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.outlineVariant),
+          border: Border.all(color: theme.colorScheme.outlineVariant),
         ),
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -652,7 +658,7 @@ class _SuggestedMentorCard extends StatelessWidget {
                         style: GoogleFonts.outfit(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.onSurface,
+                          color: theme.colorScheme.onSurface,
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -795,11 +801,12 @@ class _GreetingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: theme.cardTheme.color ?? theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.outlineVariant),
+        border: Border.all(color: theme.colorScheme.outlineVariant),
       ),
       padding: EdgeInsets.all(desktop ? 32 : 20),
       child: Row(
@@ -822,7 +829,7 @@ class _GreetingCard extends StatelessWidget {
                         style: GoogleFonts.spaceGrotesk(
                           fontSize: desktop ? 26 : 22,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.onSurface,
+                          color: theme.colorScheme.onSurface,
                           height: 1.2,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -837,7 +844,7 @@ class _GreetingCard extends StatelessWidget {
                       : 'Welcome to your mentorship hub.',
                   style: GoogleFonts.outfit(
                     fontSize: desktop ? 15 : 14,
-                    color: AppColors.onSurfaceVariant,
+                    color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
               ],
@@ -861,6 +868,7 @@ class _ProgressRing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return SizedBox(
       width: 48,
       height: 48,
@@ -869,7 +877,10 @@ class _ProgressRing extends StatelessWidget {
         children: <Widget>[
           CustomPaint(
             size: const Size(48, 48),
-            painter: _RingPainter(progress: progress),
+            painter: _RingPainter(
+              progress: progress,
+              trackColor: theme.colorScheme.outlineVariant,
+            ),
           ),
           Text(
             label,
@@ -886,9 +897,10 @@ class _ProgressRing extends StatelessWidget {
 }
 
 class _RingPainter extends CustomPainter {
-  _RingPainter({required this.progress});
+  _RingPainter({required this.progress, required this.trackColor});
 
   final double progress;
+  final Color trackColor;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -897,7 +909,7 @@ class _RingPainter extends CustomPainter {
     final double radius = (size.width - strokeWidth) / 2;
 
     final Paint track = Paint()
-      ..color = AppColors.outlineVariant.withValues(alpha: 0.4)
+      ..color = trackColor.withValues(alpha: 0.4)
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth;
     canvas.drawCircle(center, radius, track);
@@ -918,7 +930,8 @@ class _RingPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _RingPainter old) => old.progress != progress;
+  bool shouldRepaint(covariant _RingPainter old) =>
+      old.progress != progress || old.trackColor != trackColor;
 }
 
 class _BrowseMentorsActionCard extends StatelessWidget {
@@ -928,6 +941,7 @@ class _BrowseMentorsActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Material(
       color: AppColors.primary.withValues(alpha: 0.1),
       borderRadius: BorderRadius.circular(12),
@@ -972,7 +986,7 @@ class _BrowseMentorsActionCard extends StatelessWidget {
                           : 'Find someone in your field',
                       style: GoogleFonts.outfit(
                         fontSize: desktop ? 14 : 13,
-                        color: AppColors.onSurfaceVariant,
+                        color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
@@ -1286,15 +1300,16 @@ class _StatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     final double iconOpacity = iconTintIsPrimary ? 0.4 : 0.4;
     final Color iconColor = iconTintIsPrimary
         ? AppColors.primary.withValues(alpha: iconOpacity)
-        : AppColors.onSurfaceVariant.withValues(alpha: iconOpacity);
+        : theme.colorScheme.onSurfaceVariant.withValues(alpha: iconOpacity);
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: theme.cardTheme.color ?? theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.outlineVariant),
+        border: Border.all(color: theme.colorScheme.outlineVariant),
         boxShadow: desktop ? AppColors.cardGlow() : null,
       ),
       padding: EdgeInsets.all(desktop ? 24 : 16),
@@ -1309,7 +1324,7 @@ class _StatTile extends StatelessWidget {
                   style: GoogleFonts.outfit(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.onSurfaceVariant,
+                    color: theme.colorScheme.onSurfaceVariant,
                     letterSpacing: 0.6,
                   ),
                 ),
@@ -1332,7 +1347,7 @@ class _StatTile extends StatelessWidget {
                     style: GoogleFonts.outfit(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.onSurfaceVariant,
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -1342,7 +1357,7 @@ class _StatTile extends StatelessWidget {
                   style: GoogleFonts.spaceGrotesk(
                     fontSize: desktop ? 32 : 28,
                     fontWeight: FontWeight.w600,
-                    color: valueColor ?? AppColors.onSurface,
+                    color: valueColor ?? theme.colorScheme.onSurface,
                   ),
                 ),
               ],
@@ -1373,12 +1388,13 @@ class _HighlightActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     final Color background = highlight
         ? AppColors.primary.withValues(alpha: 0.1)
-        : AppColors.card;
+        : theme.cardTheme.color ?? theme.colorScheme.surface;
     final Color border = highlight
         ? AppColors.primary.withValues(alpha: 0.2)
-        : AppColors.outlineVariant;
+        : theme.colorScheme.outlineVariant;
     return Material(
       color: background,
       borderRadius: BorderRadius.circular(12),
@@ -1414,7 +1430,7 @@ class _HighlightActionCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: highlight
                             ? AppColors.primary
-                            : AppColors.onSurface,
+                            : theme.colorScheme.onSurface,
                         height: 1.2,
                       ),
                     ),
@@ -1423,7 +1439,7 @@ class _HighlightActionCard extends StatelessWidget {
                       subtitle,
                       style: GoogleFonts.outfit(
                         fontSize: desktop ? 14 : 13,
-                        color: AppColors.onSurfaceVariant,
+                        color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
@@ -1458,8 +1474,9 @@ class _TertiaryActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Material(
-      color: AppColors.card,
+      color: theme.cardTheme.color ?? theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: onTap,
@@ -1467,7 +1484,7 @@ class _TertiaryActionCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.outlineVariant),
+            border: Border.all(color: theme.colorScheme.outlineVariant),
           ),
           padding: EdgeInsets.all(desktop ? 24 : 16),
           child: Column(
@@ -1481,7 +1498,7 @@ class _TertiaryActionCard extends StatelessWidget {
                 style: GoogleFonts.outfit(
                   fontSize: desktop ? 16 : 15,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.onSurface,
+                  color: theme.colorScheme.onSurface,
                 ),
               ),
               const SizedBox(height: 2),
@@ -1489,7 +1506,7 @@ class _TertiaryActionCard extends StatelessWidget {
                 subtitle,
                 style: GoogleFonts.outfit(
                   fontSize: desktop ? 13 : 12,
-                  color: AppColors.onSurfaceVariant,
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
             ],
@@ -1513,6 +1530,7 @@ class _ForumSectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -1521,7 +1539,7 @@ class _ForumSectionHeader extends StatelessWidget {
           style: GoogleFonts.outfit(
             fontSize: 15,
             fontWeight: FontWeight.w600,
-            color: AppColors.onSurface,
+            color: theme.colorScheme.onSurface,
           ),
         ),
         TextButton(
@@ -1551,11 +1569,12 @@ class _ForumPostTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     final String author = post.author?.fullName ?? 'Unknown';
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Material(
-        color: AppColors.card,
+        color: theme.cardTheme.color ?? theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           onTap: () => context.go('/forum/${post.id}'),
@@ -1563,7 +1582,7 @@ class _ForumPostTile extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.outlineVariant),
+              border: Border.all(color: theme.colorScheme.outlineVariant),
             ),
             padding: const EdgeInsets.all(14),
             child: Column(
@@ -1582,7 +1601,7 @@ class _ForumPostTile extends StatelessWidget {
                         style: GoogleFonts.outfit(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.onSurface,
+                          color: theme.colorScheme.onSurface,
                           height: 1.3,
                         ),
                         maxLines: 2,
@@ -1602,7 +1621,7 @@ class _ForumPostTile extends StatelessWidget {
                         '${_relativeTime(post.createdAt)}',
                         style: GoogleFonts.outfit(
                           fontSize: 12,
-                          color: AppColors.onSurfaceVariant,
+                          color: theme.colorScheme.onSurfaceVariant,
                         ),
                         textAlign: TextAlign.right,
                         overflow: TextOverflow.ellipsis,

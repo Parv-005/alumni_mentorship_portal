@@ -59,25 +59,27 @@ class _MentorDirectoryScreenState extends State<MentorDirectoryScreen> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final auth = AppProviders.of(context).authViewModel;
-    final bool canBecomeMentor =
-        auth.isAuthenticated && auth.profile?.role == 'alumni';
+    final vm = _ensureViewModel();
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Mentors')),
-      floatingActionButton: canBecomeMentor
-          ? FloatingActionButton.extended(
-              onPressed: () => context.go('/mentors/edit'),
-              icon: const Icon(Icons.workspace_premium),
-              label: const Text('Become a mentor'),
-            )
-          : null,
-      body: RefreshIndicator(
-        onRefresh: () => _ensureViewModel().refresh(),
-        child: AnimatedBuilder(
-          animation: _ensureViewModel(),
-          builder: (BuildContext context, Widget? _) {
-            final vm = _ensureViewModel();
-            return CustomScrollView(
+    return AnimatedBuilder(
+      animation: vm,
+      builder: (BuildContext context, Widget? _) {
+        final bool canBecomeMentor = auth.isAuthenticated &&
+            auth.profile?.role == 'alumni' &&
+            !vm.hasOwnMentorProfile;
+
+        return Scaffold(
+          appBar: AppBar(title: const Text('Mentors')),
+          floatingActionButton: canBecomeMentor
+              ? FloatingActionButton.extended(
+                  onPressed: () => context.go('/mentors/edit'),
+                  icon: const Icon(Icons.workspace_premium),
+                  label: const Text('Become a mentor'),
+                )
+              : null,
+          body: RefreshIndicator(
+            onRefresh: () => _ensureViewModel().refresh(),
+            child: CustomScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               slivers: <Widget>[
                 SliverToBoxAdapter(
@@ -117,7 +119,8 @@ class _MentorDirectoryScreenState extends State<MentorDirectoryScreen> {
                           const SizedBox(
                             width: 18,
                             height: 18,
-                            child: CircularProgressIndicator(strokeWidth: 2),
+                            child:
+                                CircularProgressIndicator(strokeWidth: 2),
                           ),
                       ],
                     ),
@@ -131,7 +134,8 @@ class _MentorDirectoryScreenState extends State<MentorDirectoryScreen> {
                 else if (vm.loading && vm.mentors.isEmpty)
                   const SliverFillRemaining(
                     hasScrollBody: false,
-                    child: LoadingView(message: 'Loading mentors…'),
+                    child:
+                        LoadingView(message: 'Loading mentors…'),
                   )
                 else if (vm.mentors.isEmpty)
                   const SliverFillRemaining(
@@ -139,7 +143,8 @@ class _MentorDirectoryScreenState extends State<MentorDirectoryScreen> {
                     child: EmptyState(
                       icon: Icons.workspace_premium_outlined,
                       title: 'No mentors found',
-                      message: 'Try adjusting your filters or search keywords.',
+                      message:
+                          'Try adjusting your filters or search keywords.',
                     ),
                   )
                 else
@@ -154,10 +159,10 @@ class _MentorDirectoryScreenState extends State<MentorDirectoryScreen> {
                     ),
                   ),
               ],
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

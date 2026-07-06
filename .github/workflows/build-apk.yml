@@ -29,6 +29,14 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
+      - name: Create .env from GitHub Secrets
+        run: |
+          printf 'SUPABASE_URL=%s\nSUPABASE_ANON_KEY=%s\n' "${{ secrets.SUPABASE_URL }}" "${{ secrets.SUPABASE_ANON_KEY }}" > .env
+          echo "--- .env contents (keys only) ---"
+          grep -oP '^[^=]+' .env
+          echo "--- file size ---"
+          wc -c .env
+
       - name: Build release APK
         run: flutter build apk --release
 

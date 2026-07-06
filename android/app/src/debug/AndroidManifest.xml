@@ -1,0 +1,18 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- The INTERNET permission is required for development. Specifically,
+         the Flutter tool needs it to communicate with the running application
+         to allow setting breakpoints, to provide hot reload, etc.
+    -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Disable Impeller in debug/emulator builds. Impeller compiles shaders
+         on the main thread on first render, which freezes the Android emulator
+         for several seconds per screen (Skipped frames / Davey ~2.8s).
+         Skia (the legacy backend) avoids this on emulators. Production builds
+         keep Impeller enabled via the main manifest. -->
+    <application>
+        <meta-data
+            android:name="io.flutter.embedding.android.EnableImpeller"
+            android:value="false" />
+    </application>
+</manifest>

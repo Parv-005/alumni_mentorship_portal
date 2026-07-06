@@ -149,6 +149,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontSize: 15,
                     ),
                   ),
+                  Text(
+                    'Test student email: cemix95745@kinws.com\n Pass: abcd@1234',
+                    textAlign: TextAlign.center,
+                    style: text.bodyMedium?.copyWith(
+                      color: colors.onSurfaceVariant,
+                      fontSize: 15,
+                    ),
+                  ),
+                  
                   SizedBox(height: wide ? 32 : 28),
                   TextFormField(
                     controller: _emailController,

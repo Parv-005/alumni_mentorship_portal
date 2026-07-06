@@ -1,6 +1,11 @@
+import 'package:alumni_mentorship_platform/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 /// Small badge showing the user's role (student / alumni / admin).
+///
+/// Refined to the NALUM tint set: alumni = teal tint, student = blue tint,
+/// admin = red tint — low-alpha background with high-contrast text, pill
+/// shaped (radius 999).
 class RoleBadge extends StatelessWidget {
   const RoleBadge({super.key, required this.role});
 
@@ -39,23 +44,23 @@ class RoleBadge extends StatelessWidget {
         return const _RoleSpec(
           label: 'Alumni',
           icon: Icons.workspace_premium_outlined,
-          background: Color(0xFFD1C4E9),
-          foreground: Color(0xFF311B92),
+          background: AppColors.alumniBg,
+          foreground: AppColors.alumniFg,
         );
       case 'admin':
         return const _RoleSpec(
           label: 'Admin',
           icon: Icons.shield_outlined,
-          background: Color(0xFFFFCDD2),
-          foreground: Color(0xFFB71C1C),
+          background: AppColors.adminBg,
+          foreground: AppColors.adminFg,
         );
       case 'student':
       default:
         return const _RoleSpec(
           label: 'Student',
           icon: Icons.school_outlined,
-          background: Color(0xFFB3E5FC),
-          foreground: Color(0xFF01579B),
+          background: AppColors.studentBg,
+          foreground: AppColors.studentFg,
         );
     }
   }

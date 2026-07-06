@@ -2,6 +2,7 @@ import 'dart:developer' as developer;
 
 import 'package:alumni_mentorship_platform/data/models/booking_request.dart';
 import 'package:alumni_mentorship_platform/data/models/forum_post.dart';
+import 'package:alumni_mentorship_platform/data/models/mentor.dart';
 import 'package:alumni_mentorship_platform/data/repositories/booking_repository.dart';
 import 'package:alumni_mentorship_platform/data/repositories/forum_repository.dart';
 import 'package:alumni_mentorship_platform/data/repositories/mentor_repository.dart';
@@ -27,6 +28,7 @@ class DashboardViewModel extends ChangeNotifier {
   List<BookingRequest> _studentBookings = const <BookingRequest>[];
   List<BookingRequest> _mentorBookings = const <BookingRequest>[];
   List<ForumPost> _recentPosts = const <ForumPost>[];
+  List<Mentor> _mentors = const <Mentor>[];
   bool _isMentor = false;
   int _mentorCount = 0;
 
@@ -41,6 +43,10 @@ class DashboardViewModel extends ChangeNotifier {
 
   /// Most recent forum posts (any sort).
   List<ForumPost> get recentPosts => _recentPosts;
+
+  /// Recently-listed mentors (used by the desktop dashboard's "Suggested for
+  /// you" rail). Empty until [load] completes.
+  List<Mentor> get mentors => _mentors;
 
   /// True when the signed-in user has a mentor profile.
   bool get isMentor => _isMentor;
@@ -82,8 +88,8 @@ class DashboardViewModel extends ChangeNotifier {
       _studentBookings = results[0] as List<BookingRequest>;
       _mentorBookings = results[1] as List<BookingRequest>;
       _recentPosts = results[2] as List<ForumPost>;
-      final mentorList = results[3] as List<dynamic>;
-      _mentorCount = mentorList.length;
+      _mentors = results[3] as List<Mentor>;
+      _mentorCount = _mentors.length;
       _isMentor = role == 'alumni';
     } on Object catch (e, st) {
       developer.log('Dashboard load error', error: e, stackTrace: st);

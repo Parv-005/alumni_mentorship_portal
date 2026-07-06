@@ -50,3 +50,4 @@ app.*.map.json
 CLAUDE.md
 .mcp.json
 .claude
+stitch_assets/
